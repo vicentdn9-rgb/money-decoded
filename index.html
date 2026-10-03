@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is This a Crypto Scam? Free 30-Second Check | Money Decoded</title>
+<meta name="description" content="Answer 10 quick questions and find out if that crypto offer, DM or website shows the red flags of a scam. Free, private, no sign-up. By Money Decoded.">
+<meta property="og:title" content="Is This a Crypto Scam? Free 30-Second Check">
+<meta property="og:description" content="10 quick questions. Spot the red flags before you send a single coin.">
+<meta property="og:image" content="logo.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="logo.png">
+<style>
+  :root {
+    --bg: #070b1f; --panel: #0f1a45; --panel2: #0a1030; --line: #1d2a5c;
+    --text: #f4f7ff; --muted: #aab4d6;
+    --cyan: #2ee6ff; --magenta: #ff3d9a; --gold: #ffc83d; --green: #3dffa0; --red: #ff4d5e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 50% -10%, #142266 0%, var(--bg) 60%);
+    background-color: var(--bg);
+    color: var(--text);
+    font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  header img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--cyan); }
+  header .brand { font-weight: 800; letter-spacing: .5px; }
+  header .brand span { color: var(--cyan); }
+  h1 { font-size: clamp(30px, 7vw, 46px); line-height: 1.1; margin: 0 0 12px; }
+  h1 .hl { color: var(--gold); text-shadow: 0 0 24px rgba(255,200,61,.35); }
+  .lead { color: var(--muted); margin: 0 0 24px; font-size: 18px; }
+  .card { background: linear-gradient(180deg, var(--panel), var(--panel2)); border: 1px solid var(--line);
+          border-radius: 18px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  .q { display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .q:last-of-type { border-bottom: 0; }
+  .q .n { flex: 0 0 28px; height: 28px; border-radius: 50%; background: var(--line); color: var(--cyan);
+          display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .q .body { flex: 1; }
+  .q p { margin: 0 0 10px; }
+  .opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opts label { cursor: pointer; }
+  .opts input { position: absolute; opacity: 0; pointer-events: none; }
+  .opts span { display: inline-block; padding: 8px 18px; border-radius: 999px; border: 1px solid var(--line);
+               background: var(--bg); color: var(--muted); font-weight: 600; transition: all .15s; }
+  .opts input:focus-visible + span { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .opts input[value="yes"]:checked + span { background: rgba(255,77,94,.15); border-color: var(--red); color: var(--red); }
+  .opts input[value="no"]:checked + span { background: rgba(61,255,160,.12); border-color: var(--green); color: var(--green); }
+  .opts input[value="unsure"]:checked + span { background: rgba(255,200,61,.12); border-color: var(--gold); color: var(--gold); }
+  button.cta { width: 100%; margin-top: 18px; padding: 16px; border: 0; border-radius: 14px; cursor: pointer;
+               font: inherit; font-weight: 800; font-size: 18px; color: #070b1f;
+               background: linear-gradient(90deg, var(--cyan), var(--magenta)); }
+  button.cta:disabled { opacity: .45; cursor: not-allowed; }
+  .hint { color: var(--muted); font-size: 14px; text-align: center; margin-top: 8px; }
+  #result { display: none; margin-top: 24px; }
+  #result.show { display: block; }
+  .verdict { font-size: clamp(24px, 6vw, 34px); font-weight: 900; margin: 0 0 6px; }
+  .meter { height: 12px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); overflow: hidden; margin: 12px 0 16px; }
+  .meter i { display: block; height: 100%; width: 0; transition: width .6s ease; }
+  .flags { margin: 0; padding-left: 20px; }
+  .flags li { margin: 8px 0; }
+  .flags b { color: var(--gold); }
+  .todo { margin-top: 16px; padding: 14px 16px; border-radius: 12px; background: rgba(46,230,255,.08); border: 1px solid rgba(46,230,255,.35); }
+  .todo h3 { margin: 0 0 6px; font-size: 17px; color: var(--cyan); }
+  .todo ul { margin: 0; padding-left: 20px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .btn { flex: 1 1 180px; text-align: center; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+         background: var(--bg); color: var(--text); text-decoration: none; font-weight: 700; cursor: pointer; font: inherit; }
+  .btn:hover { border-color: var(--cyan); }
+  section { margin-top: 40px; }
+  h2 { font-size: 24px; margin: 0 0 12px; }
+  .socials { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .socials a { display: block; padding: 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--panel2);
+               color: var(--text); text-decoration: none; font-weight: 700; text-align: center; }
+  .socials a small { display: block; color: var(--muted); font-weight: 500; font-size: 13px; }
+  .socials a:hover { border-color: var(--magenta); }
+  .video { display: block; margin-top: 14px; padding: 16px; border-radius: 14px; text-decoration: none; color: var(--text);
+           border: 1px solid var(--gold); background: rgba(255,200,61,.07); }
+  .video b { color: var(--gold); }
+  details { border-bottom: 1px solid var(--line); padding: 12px 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { color: var(--muted); margin: 8px 0 0; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: center; }
+  @media (max-width: 480px) { body { font-size: 16px; } .card { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.png" alt="Money Decoded logo">
+    <div class="brand">MONEY <span>DECODED</span></div>
+  </header>
+
+  <h1>Is this a <span class="hl">crypto scam?</span></h1>
+  <p class="lead">Got a DM, an "investment opportunity" or a website that looks too good to be true? Answer 10 quick questions. Nothing you type leaves your browser.</p>
+
+  <form id="quiz" class="card" autocomplete="off"></form>
+  <p class="hint" id="progress">0 of 10 answered</p>
+
+  <div id="result" class="card" aria-live="polite">
+    <p class="verdict" id="verdict"></p>
+    <div class="meter"><i id="bar"></i></div>
+    <p id="summary"></p>
+    <ul class="flags" id="flags"></ul>
+    <div class="todo">
+      <h3>Before you do anything else</h3>
+      <ul>
+        <li>Do not send money, crypto or your seed phrase. No real company will ever ask for your seed phrase.</li>
+        <li>Find the company yourself (type the address, don't click links) and check your regulator's warning list.</li>
+        <li>Already sent something? Stop paying, save every message and transaction ID, and report it to your bank or exchange and to the police. Beware of "recovery services": they are often the second scam.</li>
+      </ul>
+    </div>
+    <div class="row">
+      <button class="btn" type="button" id="share">Share this check</button>
+      <button class="btn" type="button" id="again">Start again</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>Learn every trick in 60 seconds</h2>
+    <p class="lead" style="margin-bottom:14px">Short animated explainers on how crypto scams work, so you spot them first.</p>
+    <div class="socials">
+      <a href="https://www.youtube.com/@MoneyDecoded.Explained" target="_blank" rel="noopener">YouTube<small>@MoneyDecoded.Explained</small></a>
+      <a href="https://www.tiktok.com/@money_decoded_real" target="_blank" rel="noopener">TikTok<small>@money_decoded_real</small></a>
+      <a href="https://www.instagram.com/money_decoded_real/" target="_blank" rel="noopener">Instagram<small>@money_decoded_real</small></a>
+      <a href="https://www.facebook.com/profile.php?id=61594367282797" target="_blank" rel="noopener">Facebook<small>Money Decoded</small></a>
+    </div>
+    <a class="video" href="https://www.youtube.com/watch?v=AY7elKB_VZQ" target="_blank" rel="noopener">▶ <b>Every Crypto Scam, Explained</b> — the full animated video on YouTube</a>
+  </section>
+
+  <section>
+    <h2>Questions people ask</h2>
+    <details><summary>How do I know if a crypto investment is a scam?</summary><p>The biggest red flags are guaranteed or very high returns, pressure to act fast, contact that started with a stranger online, and requests to pay in crypto or gift cards. This check covers the 10 most common warning signs.</p></details>
+    <details><summary>What is a pig butchering scam?</summary><p>A scammer builds a friendship or romance over weeks, then introduces a "can't lose" crypto platform. Early small withdrawals work to build trust; once you deposit more, the money is gone and new "fees" appear.</p></details>
+    <details><summary>Will a real company ever ask for my seed phrase?</summary><p>Never. Your seed phrase (12 or 24 words) is the master key to your wallet. Anyone who has it can take everything. Support staff, exchanges and wallet makers will never ask for it.</p></details>
+    <details><summary>I already sent crypto to a scammer. Can I get it back?</summary><p>Crypto transfers are hard to reverse. Report it quickly to your exchange, your bank and the police, and keep all evidence. Be very careful with anyone who promises to recover your funds for a fee: that is a common follow-up scam.</p></details>
+    <details><summary>Is this check financial advice?</summary><p>No. It is an educational tool that highlights warning signs. A low score does not mean an offer is safe. Always do your own research.</p></details>
+  </section>
+
+  <footer>
+    Educational tool by Money Decoded. Not financial advice. Your answers are processed only in your browser and never sent anywhere.
+  </footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  { q: "Did they promise guaranteed profits or very high returns (like 1–5% a day or \"double your money\")?",
+    why: "<b>Guaranteed or huge returns.</b> No real investment guarantees profit. Promises like this are the #1 sign of a Ponzi or fake platform.", w: 3 },
+  { q: "Did the contact start with a stranger online (DM, dating app, wrong-number text, social media comment)?",
+    why: "<b>Unsolicited contact.</b> Most crypto scams start with a stranger reaching out first, often friendly or romantic (pig butchering).", w: 2 },
+  { q: "Are they rushing you (limited spots, \"offer ends tonight\", act now or lose out)?",
+    why: "<b>Pressure and urgency.</b> Scammers rush you so you don't stop to check. Real opportunities can wait a day.", w: 2 },
+  { q: "Did anyone ask for your seed phrase, private key or wallet recovery words?",
+    why: "<b>Seed phrase request.</b> This alone means scam. Whoever has those words can empty your wallet. No legitimate person or company will ever ask.", w: 5 },
+  { q: "Do you have to pay a \"fee\", \"tax\" or \"unlock deposit\" before you can withdraw your money?",
+    why: "<b>Pay to withdraw.</b> Fake platforms invent fees to squeeze more money out of you. The balance you see is not real.", w: 4 },
+  { q: "Is a celebrity, influencer or famous company used to promote it (Elon Musk giveaway, \"as seen on TV\")?",
+    why: "<b>Fake endorsement.</b> Celebrity giveaways and deepfake videos are classic scams. Real celebrities don't double your crypto.", w: 2 },
+  { q: "Were you asked to install an app, browser extension or remote-access tool (AnyDesk, TeamViewer), or to connect your wallet to a site you didn't find yourself?",
+    why: "<b>Remote access or unknown wallet connection.</b> This lets them take control of your device or drain your wallet with one approval.", w: 4 },
+  { q: "Do they want payment in crypto, gift cards or wire transfer only, with no normal way to pay or refund?",
+    why: "<b>Irreversible payment only.</b> Scammers prefer methods that can't be reversed or traced easily.", w: 2 },
+  { q: "Is it hard to find who runs it (no real company name, no address, website only a few weeks old, not registered with a regulator)?",
+    why: "<b>No identifiable company.</b> Legit platforms are registered and easy to verify. Anonymous and brand-new sites are a warning sign.", w: 3 },
+  { q: "Do they pay you for bringing in friends, or say \"the more people you recruit, the more you earn\"?",
+    why: "<b>Recruitment rewards.</b> When earnings depend on new members, it's usually a pyramid or Ponzi scheme that collapses.", w: 2 }
+];
+const MAX = QUESTIONS.reduce((s, x) => s + x.w, 0);
+const form = document.getElementById("quiz");
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement("div");
+  div.className = "q";
+  div.innerHTML = `<div class="n">${i + 1}</div><div class="body"><p id="q${i}">${item.q}</p>
+    <div class="opts" role="radiogroup" aria-labelledby="q${i}">
+      <label><input type="radio" name="q${i}" value="yes"><span>Yes</span></label>
+      <label><input type="radio" name="q${i}" value="unsure"><span>Not sure</span></label>
+      <label><input type="radio" name="q${i}" value="no"><span>No</span></label>
+    </div></div>`;
+  form.appendChild(div);
+});
+const btn = document.createElement("button");
+btn.type = "submit"; btn.className = "cta"; btn.textContent = "Check it"; btn.disabled = true;
+form.appendChild(btn);
+
+const progress = document.getElementById("progress");
+form.addEventListener("change", () => {
+  const n = QUESTIONS.filter((_, i) => form.querySelector(`input[name=q${i}]:checked`)).length;
+  progress.textContent = `${n} of ${QUESTIONS.length} answered`;
+  btn.disabled = n < QUESTIONS.length;
+});
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  let score = 0; const flags = []; let critical = false;
+  QUESTIONS.forEach((item, i) => {
+    const v = form.querySelector(`input[name=q${i}]:checked`).value;
+    if (v === "yes") { score += item.w; flags.push(item.why); if (item.w >= 4) critical = true; }
+    else if (v === "unsure") { score += item.w / 2; flags.push(item.why + " <i>(you weren't sure: check this one)</i>"); }
+  });
+  let pct = Math.round(score / MAX * 100);
+  if (critical) pct = Math.max(pct, 85); // one deal-breaker (seed phrase, pay-to-withdraw, remote access) is enough
+  let verdict, color, summary;
+  if (critical || pct >= 45) {
+    verdict = "🚨 This looks like a scam"; color = "var(--red)";
+    summary = "It shows strong warning signs. Stop here: don't send anything and don't share any details.";
+  } else if (pct >= 15) {
+    verdict = "⚠️ Serious red flags"; color = "var(--gold)";
+    summary = "Some classic scam signs are present. Verify everything independently before going any further.";
+  } else {
+    verdict = "✅ Few red flags found"; color = "var(--green)";
+    summary = "That's a good sign, but it doesn't prove it's safe. Scammers adapt, so keep checking.";
+  }
+  document.getElementById("verdict").textContent = verdict;
+  document.getElementById("verdict").style.color = color;
+  const bar = document.getElementById("bar");
+  bar.style.background = color; bar.style.width = "0";
+  requestAnimationFrame(() => requestAnimationFrame(() => bar.style.width = Math.max(pct, 4) + "%"));
+  document.getElementById("summary").textContent = summary + ` Risk score: ${pct}/100.`;
+  document.getElementById("flags").innerHTML = flags.map(f => `<li>${f}</li>`).join("");
+  const res = document.getElementById("result");
+  res.classList.add("show");
+  res.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("again").addEventListener("click", () => {
+  form.reset(); btn.disabled = true; progress.textContent = `0 of ${QUESTIONS.length} answered`;
+  document.getElementById("result").classList.remove("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+document.getElementById("share").addEventListener("click", async () => {
+  const data = { title: "Is this a crypto scam?", text: "Check any crypto offer for scam red flags in 30 seconds:", url: location.href };
+  try {
+    if (navigator.share) await navigator.share(data);
+    else { await navigator.clipboard.writeText(location.href); document.getElementById("share").textContent = "Link copied!"; }
+  } catch (_) {}
+});
+</script>
+</body>
+</html>
