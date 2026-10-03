@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vicentdn9-rgb.github.io/money-decoded/sitemap.xml
