@@ -9,3 +9,9 @@ in the browser; no data is sent anywhere. Published with GitHub Pages.
 - Edit `index.html` and push to `main`; Pages redeploys automatically.
 
 Educational tool. Not financial advice.
+
+## Tests
+
+`C:\FutureLiving\studio\.venv\Scripts\python.exe tests/test_site.py` serves the folder locally and checks with
+Playwright (installed Edge) the scam check (scoring, decisive flags, reset), links, the 10 guides,
+the sitemap and mobile layout. Run it after every change; exit code 1 if anything fails.
