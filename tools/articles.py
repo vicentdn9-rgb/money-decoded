@@ -11,6 +11,11 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://vicentdn9-rgb.github.io/money-decoded/"
 UPDATED = "2026-10-03"
+KIT_URL = "https://labyrinth8870.gumroad.com/l/brzzs"
+KIT = ('<div class="kit"><b>Protect your parents or grandparents</b><br>'
+       'The Family Scam Safety Kit: one 45-60 minute sit-down, a written family plan and the key account protections switched on. '
+       '11 printable pages, $14, 30-day refund.<br>'
+       f'<a class="btn" href="{KIT_URL}" target="_blank" rel="noopener">Get the family kit</a></div>')
 
 ARTICLES = [
     {
@@ -256,8 +261,8 @@ h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:0 0 10px}
 h2{font-size:22px;margin:28px 0 8px;color:var(--gold)}
 .meta{color:var(--muted);font-size:14px;margin-bottom:20px}
 a{color:var(--cyan)}ul{padding-left:22px}li{margin:6px 0}
-.cta{margin-top:32px;padding:18px;border-radius:16px;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line)}
-.cta a.btn{display:inline-block;margin-top:8px;padding:12px 18px;border-radius:12px;font-weight:800;color:#070b1f;text-decoration:none;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+.cta,.kit{margin-top:32px;padding:18px;border-radius:16px;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line)}
+.cta a.btn,.kit a.btn{display:inline-block;margin-top:8px;padding:12px 18px;border-radius:12px;font-weight:800;color:#070b1f;text-decoration:none;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
 .list a{display:block;padding:14px 16px;margin:10px 0;border-radius:14px;border:1px solid var(--line);background:var(--panel2);color:var(--text);text-decoration:none}
 .list a:hover{border-color:var(--cyan)}.list small{display:block;color:var(--muted)}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
@@ -314,6 +319,7 @@ def main():
             'Answer 10 quick questions and see the red flags.<br>'
             '<a class="btn" href="../">Take the free scam check</a>'
             '<p style="margin:14px 0 0;color:var(--muted)">Watch the 60-second animated explainers on ' + SOCIALS + '.</p></div>'
+            + KIT
         )
         ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"],
               "description": a["desc"], "dateModified": UPDATED, "author": {"@type": "Organization", "name": "Money Decoded"},
@@ -325,7 +331,7 @@ def main():
     )
     inner = ("<h1>Crypto Scam Guides</h1><div class=\"meta\">How each scam works, the red flags, and what to do. Updated "
              + UPDATED + ".</div><div class=\"list\">" + items + "</div>"
-             '<div class="cta"><b>Check a specific offer</b><br><a class="btn" href="../">Take the free scam check</a></div>')
+             '<div class="cta"><b>Check a specific offer</b><br><a class="btn" href="../">Take the free scam check</a></div>' + KIT)
     with open(os.path.join(gdir, "index.html"), "w", encoding="utf-8", newline="\n") as f:
         f.write(page("Crypto Scam Guides", "Plain-English guides to the most common crypto scams: how they work, red flags and what to do.",
                      SITE + "guides/", inner))
