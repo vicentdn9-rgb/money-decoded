@@ -46,7 +46,30 @@ def answer_all(page, value, overrides=None):
         page.click(f"input[name=q{i}][value={overrides.get(i, value)}] + span")
 
 
+def static_security_checks():
+    """README promise: the site sends no data anywhere. Enforced on the files, no browser needed."""
+    pages = sorted(ROOT.rglob("*.html"))
+    check("security: 12 pages found", len(pages) == 12, str(len(pages)))
+    for p in pages:
+        name = p.relative_to(ROOT).as_posix()
+        html = p.read_text(encoding="utf-8")
+        check(f"security: CSP meta: {name}", 'http-equiv="Content-Security-Policy"' in html)
+        check(f"security: no external <script src>: {name}", not re.search(r"<script[^>]*\ssrc=", html, re.I))
+        check(f"security: no fetch/XHR/sendBeacon: {name}",
+              not re.search(r"\bfetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket\(", html))
+        check(f"security: no <form action>: {name}", not re.search(r"<form[^>]*\saction=", html, re.I))
+        check(f"security: no <iframe>/<object>/<embed>: {name}", not re.search(r"<(iframe|object|embed)\b", html, re.I))
+        check(f"security: no third-party stylesheet/font/image: {name}",
+              not re.search(r"<img[^>]*\ssrc=\"(https?:)?//", html, re.I)
+              and not re.search(r"<link[^>]*rel=\"(stylesheet|preload|prefetch|modulepreload|icon)\"[^>]*href=\"(https?:)?//", html, re.I)
+              and not re.search(r"@import\s+(url\()?[\"']?(https?:)?//", html, re.I))
+        blank = re.findall(r"<a\b[^>]*target=\"_blank\"[^>]*>", html, re.I)
+        check(f"security: target=_blank links carry rel=noopener: {name}",
+              all(re.search(r"rel=\"[^\"]*noopener", a) for a in blank), f"{len(blank)} links")
+
+
 def main():
+    static_security_checks()
     srv, base = serve()
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="msedge")  # uses installed Edge, no download
